@@ -25,14 +25,14 @@ class UserOut(BaseModel):
     income_frequency: IncomeFrequency
     monthly_income_estimate: float
     starting_balance: float
-    created_at: datetime
+    created_at: dt.datetime
 
     model_config = {"from_attributes": True}
 
 
 class TransactionCreate(BaseModel):
     user_id: str
-    date: date
+    date: dt.date
     amount: float = Field(gt=0)
     type: TxnType
     category: str
@@ -54,14 +54,14 @@ class TransactionUpdate(BaseModel):
 class TransactionOut(BaseModel):
     id: str
     user_id: str
-    date: date
+    date: dt.date
     amount: float
     type: TxnType
     category: str
     merchant: str | None
     note: str | None
     tags: list[str] | None = None
-    created_at: datetime
+    created_at: dt.datetime
 
     model_config = {"from_attributes": True}
 
@@ -70,7 +70,7 @@ class GoalCreate(BaseModel):
     user_id: str
     title: str
     target_amount: float = Field(gt=0)
-    target_date: date
+    target_date: dt.date
     current_amount: float = Field(default=0.0, ge=0.0)
     category: str = "other"
 
@@ -78,7 +78,7 @@ class GoalCreate(BaseModel):
 class GoalUpdate(BaseModel):
     title: str | None = None
     target_amount: float | None = Field(default=None, gt=0)
-    target_date: date | None = None
+    target_date: dt.date | None = None
     current_amount: float | None = Field(default=None, ge=0.0)
     category: str | None = None
 
@@ -88,22 +88,22 @@ class GoalOut(BaseModel):
     user_id: str
     title: str
     target_amount: float
-    target_date: date
+    target_date: dt.date
     current_amount: float
     category: str
-    created_at: datetime
+    created_at: dt.datetime
 
     model_config = {"from_attributes": True}
 
 
 class ForecastPoint(BaseModel):
-    date: date
+    date: dt.date
     projected_balance: float
 
 
 class ForecastOut(BaseModel):
     user_id: str
-    as_of: date
+    as_of: dt.date
     current_balance: float
     horizons_days: list[int]
     curve: list[ForecastPoint]
@@ -119,7 +119,7 @@ class InsightOut(BaseModel):
     title: str
     description: str
     severity: Literal["low", "medium", "high"]
-    created_at: datetime
+    created_at: dt.datetime
 
     model_config = {"from_attributes": True}
 
@@ -130,7 +130,7 @@ class NudgeOut(BaseModel):
     title: str
     message: str
     action_label: str | None
-    created_at: datetime
+    created_at: dt.datetime
 
     model_config = {"from_attributes": True}
 
@@ -148,4 +148,3 @@ class RiskProfileOut(BaseModel):
     profile: Literal["cautious", "balanced", "growth-ready"]
     explanation: str
     signals: dict[str, float]
-
