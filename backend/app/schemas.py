@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import dt
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -42,7 +42,7 @@ class TransactionCreate(BaseModel):
 
 
 class TransactionUpdate(BaseModel):
-    date: date | None = None
+    date: dt.date | None = None
     amount: float | None = Field(default=None, gt=0)
     type: TxnType | None = None
     category: str | None = None
